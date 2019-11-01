@@ -13,11 +13,19 @@ public class ArbreB {
 		String contents;
 		ArbreB yes, no;	
 		NodeA(String contents) {
-			//Constructor 1. Inicialitza als atributys yes i no a null
-		}
-		NodeA(String pregunta, ArbreB a1, ArbreB a2) {
-			//Constructor 2. Crea el node i l'inicialitza amb els paràmetres
-		}
+            // Constructor 1. Inicialitza als atributys yes i no a null
+            this.contents = contents;
+            yes = null;
+            no = null;
+        }
+
+        // PROVISIONAL
+        NodeA(String pregunta, ArbreB a1, ArbreB a2) {
+            // Constructor 2. Crea el node i l'inicialitza amb els paràmetres
+            this.contents = pregunta;
+            yes = a1;
+            no = a2;
+	}
 	}
 	// Atributs: Taula de 2 posicions
 	private NodeA[] root;

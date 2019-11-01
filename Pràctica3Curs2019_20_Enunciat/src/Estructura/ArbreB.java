@@ -67,17 +67,19 @@ public class ArbreB {
 	}
 	public void rewind() {
 		//COMPLETE
-		root[1] == root[0];
+		root[1] = root[0];
 		// FALTA CHECKAR ESTO
 	}
 	/* True if the current node is an answer (a leaf) */
 	public boolean atAnswer() {
 		//COMPLETE
-		return root[1].contents.substring(/*root[1].contents*/.length()-1) != '?';
+		String node = root[1].contents;
+		return node.substring(node.length() - 1) != "?";
 	}
 	/* move current to yes-descendant of itself */
 	public void moveToYes() {
 		//COMPLETE
+		root[1] = root[1].yes.root[0];
 	}
 	/* move current to yes-descendant of itself */
 	public void moveToNo() {

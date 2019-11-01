@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Stack;
 
-
+//Hola Cristian
 public class ArbreB {
 	private class NodeA {
 		String contents;
@@ -16,7 +16,7 @@ public class ArbreB {
 			//Constructor 1. Inicialitza als atributys yes i no a null
 		}
 		NodeA(String pregunta, ArbreB a1, ArbreB a2) {
-			//Constructor 2. Crea el node i l'inicialitza amb els par‡metres
+			//Constructor 2. Crea el node i l'inicialitza amb els par√†metres
 		}
 	}
 	// Atributs: Taula de 2 posicions
@@ -31,7 +31,7 @@ public class ArbreB {
 	}	
 	public ArbreB(String filename) throws Exception{
 		//Constructor 3. Crea l'arbre amb el contingut donat en un fitxer
-		//El par‡metre indica el nom del fitxer
+		//El par√†metre indica el nom del fitxer
 	}
 
 	/* PUBLIC METHODS */
@@ -57,15 +57,15 @@ public class ArbreB {
 	public String getContents() {
 		//COMPLETE
 	}
-	 /* Substituir la informaciÛ del node actual
-	 * per la pregunta donada pel jugador. Previament crear el node que ser‡ el
-	 * seu fill dret, resposta no encertada, amb la informaciÛ del node actual.
+	 /* Substituir la informaci√≥ del node actual
+	 * per la pregunta donada pel jugador. Previament crear el node que ser√† el
+	 * seu fill dret, resposta no encertada, amb la informaci√≥ del node actual.
 	 */
 	public void improve(String question, String answer) {
 		//COMPLETE
 	}
 	private void preorderWrite(BufferedWriter buw) throws Exception {
-		//Imprescindible que la implementaciÛ sigui recursiva
+		//Imprescindible que la implementaci√≥ sigui recursiva
 	}
 	/* Saves contents of tree in a text file */
 	public void save(String filename) throws Exception {
@@ -81,7 +81,7 @@ public class ArbreB {
 		}
 	}
 	private NodeA loadFromFile(String filename){
-		//Imprescindible implementaciÛ recursiva
+		//Imprescindible implementaci√≥ recursiva
 	}
 	public void visualitzarAnimals() {
 		/* Following the guidelines indicated in the statement of practice */
@@ -93,11 +93,11 @@ public class ArbreB {
 	}
 	public int alsada() {
 		/* COMPLETE */
-		// Imprescindible invocar a un mËtode la classe NodeA
+		// Imprescindible invocar a un m√®tode la classe NodeA
 	}
 	public void mostraPreguntes() {
 		/* COMPLETE */
 		// Visualitza a pantalla les preguntes
-		// Imprescindible invocar a un m‡tode la classe NodeA
+		// Imprescindible invocar a un m√†tode la classe NodeA
 	}
 }

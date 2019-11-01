@@ -84,10 +84,12 @@ public class ArbreB {
 	/* move current to yes-descendant of itself */
 	public void moveToNo() {
 		//COMPLETE
+		root[1] = root[1].no.root[0];
 	}
 	/* get the contents of the current node */
 	public String getContents() {
 		//COMPLETE
+		return root[1].contents;
 	}
 	 /* Substituir la informació del node actual
 	 * per la pregunta donada pel jugador. Previament crear el node que serà el
@@ -95,6 +97,10 @@ public class ArbreB {
 	 */
 	public void improve(String question, String answer) {
 		//COMPLETE
+		NodeA right = new NodeA(root[1].contents);
+		root[1].contents = question;
+		root[1].yes.root[0].contents = answer;
+		root[1].no.root[0] = right;
 	}
 	private void preorderWrite(BufferedWriter buw) throws Exception {
 		//Imprescindible que la implementació sigui recursiva

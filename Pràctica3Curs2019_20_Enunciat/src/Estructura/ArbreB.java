@@ -33,13 +33,31 @@ public class ArbreB {
 	/* CONSTRUCTORS */
 	public ArbreB(ArbreB a1, ArbreB a2, String pregunta) {
 		//Constructor 1. Crea un arbre amb una pregunta i dos respostes
+		new NodeA(pregunta, a1, a2);
 	}
 	public ArbreB() {
 		//Constructor 2. Crea un arbre buit
+		new NodeA(null);
 	}	
 	public ArbreB(String filename) throws Exception{
 		//Constructor 3. Crea l'arbre amb el contingut donat en un fitxer
 		//El paràmetre indica el nom del fitxer
+		String linea;
+		
+        	File fileIn = new File(filename);
+        	BufferedReader entrada = new BufferedReader(new FileReader(fileIn));
+		
+		linea= entrada.readLine();
+		
+		while(linea!=null){
+		
+			if(linea.charAt(linea.length()-1)=='?')
+				new NodeA(linea); //no estoy seguro si sería asñi para decirle que almacene la pregunta, aunque no tenga las respuestas
+			else
+				//añade la respuesta al lado izquierdo de la pregunta (lado positivo)
+				//si es la segunda respuesta que lee, la tiene que añadir al lado derecho de la pregunta(lado negativo)
+				//entonces hemos llegado a un extremo del árbol
+		}
 	}
 
 	/* PUBLIC METHODS */

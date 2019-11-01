@@ -63,13 +63,17 @@ public class ArbreB {
 	/* PUBLIC METHODS */
 	public boolean isEmpty() {
 		//COMPLETE
+		return root[0] == null;
 	}
 	public void rewind() {
 		//COMPLETE
+		root[1] == root[0];
+		// FALTA CHECKAR ESTO
 	}
 	/* True if the current node is an answer (a leaf) */
 	public boolean atAnswer() {
 		//COMPLETE
+		return root[1].contents.substring(/*root[1].contents*/.length()-1) != '?';
 	}
 	/* move current to yes-descendant of itself */
 	public void moveToYes() {

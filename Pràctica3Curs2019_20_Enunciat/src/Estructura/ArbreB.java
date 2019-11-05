@@ -39,25 +39,35 @@ public class ArbreB {
 		//Constructor 2. Crea un arbre buit
 		new NodeA(null);
 	}	
-	public ArbreB(String filename) throws Exception{
-		//Constructor 3. Crea l'arbre amb el contingut donat en un fitxer
-		//El paràmetre indica el nom del fitxer
+	public ArbreB(String filename) throws Exception {
+		// Constructor 3. Crea l'arbre amb el contingut donat en un fitxer
+		// El paràmetre indica el nom del fitxer
 		String linea;
-		
-        	File fileIn = new File(filename);
-        	BufferedReader entrada = new BufferedReader(new FileReader(fileIn));
-		
-		linea= entrada.readLine();
-		
-		while(linea!=null){
-		
-			if(linea.charAt(linea.length()-1)=='?')
-				new NodeA(linea); //no estoy seguro si sería asñi para decirle que almacene la pregunta, aunque no tenga las respuestas
-			else
-				//añade la respuesta al lado izquierdo de la pregunta (lado positivo)
-				//si es la segunda respuesta que lee, la tiene que añadir al lado derecho de la pregunta(lado negativo)
-				//entonces hemos llegado a un extremo del árbol
+		boolean question = false;
+		File fileIn = new File(filename);
+		BufferedReader entrada = new BufferedReader(new FileReader(fileIn));
+		for (int i = 0; i < 2; i++) {
+			root[i] = null;
 		}
+		try {
+			linea = entrada.readLine();
+			while (linea != null) {
+				if (root[0] == null) {
+					root[0] = new NodeA(linea);
+					rewind();
+				} else {
+					escriptura(linea);
+					/*
+					 * if (!atAnswer()) { moveToYes(); question = true; } else if (atAnswer()) {
+					 * moveToYes(); question = false; } else if (!atAnswer() && !question) {
+					 * rewind(); } else moveToNo(); root[1] = new NodeA(linea);
+					 */
+				}
+			}
+		} catch (IOException e) {
+
+		}
+		entrada.close();
 	}
 
 	/* PUBLIC METHODS */
@@ -103,7 +113,21 @@ public class ArbreB {
 		root[1].no.root[0] = right;
 	}
 	private void preorderWrite(BufferedWriter buw) throws Exception {
-		//Imprescindible que la implementació sigui recursiva
+		// Imprescindible que la implementació sigui recursiva
+		rewind();
+		buw.write(arbreSencer());
+	}
+	//método añadido
+	private String arbreSencer() {
+		// String r ="";
+		if (atAnswer())
+			return getContents();
+		moveToYes();
+		String left = arbreSencer();
+		rewind();
+		moveToNo();
+		String right = arbreSencer();
+		return left + " " + right;
 	}
 	/* Saves contents of tree in a text file */
 	public void save(String filename) throws Exception {

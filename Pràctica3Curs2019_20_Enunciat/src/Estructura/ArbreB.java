@@ -121,7 +121,7 @@ public class ArbreB {
 	private String arbreSencer() {
 		// String r ="";
 		if (atAnswer())
-			return getContents();
+			return getContents() + "\n";
 		moveToYes();
 		String left = arbreSencer();
 		rewind();

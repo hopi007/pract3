@@ -42,45 +42,11 @@ public class ArbreB {
 	public ArbreB(String filename) throws Exception {
 		// Constructor 3. Crea l'arbre amb el contingut donat en un fitxer
 		// El paràmetre indica el nom del fitxer
-		String linea;
-		boolean left = false;
-		File fileIn = new File(filename);
-		BufferedReader entrada = new BufferedReader(new FileReader(fileIn));
 		for (int i = 0; i < 2; i++) {
 			root[i] = null;
 		}
-		try {
-			linea = entrada.readLine();
-			while (linea != null) {
-				if (root[0] == null) {
-					root[0] = new NodeA(linea);
-					rewind();
-				} else {
-					if (!left) {
-						moveToYes();
-						left = acabat(root[1], linea);
-					}
-					moveToNo();
-					acabat(root[1], linea);
-				}
-				rewind();
-				linea = entrada.readLine();
-			}
-		} catch (IOException e) {
-			System.err.println("Error:c");
-			System.exit(0);
-		}
-		System.out.println("Arbre creat");
-		entrada.close();
-	}
-
-	private boolean acabat(NodeA node, String text) {
-		if (node.contents.isEmpty()) {
-			node = new NodeA(text);
-			return false;
-		} else if (atAnswer())
-			return true;
-		return acabat(node.yes.root[0], text) && acabat(node.no.root[0], text);
+		root[0] = loadFromFile(filename);
+		rewind();
 	}
 
 	/* PUBLIC METHODS */
@@ -155,8 +121,49 @@ public class ArbreB {
 			System.exit(0);
 		}
 	}
-	private NodeA loadFromFile(String filename){
-		//Imprescindible implementació recursiva
+	private NodeA loadFromFile(String filename) {
+		// Imprescindible implementació recursiva
+		String linea;
+		boolean left = false;
+		File fileIn = new File(filename);
+		BufferedReader entrada;
+		for (int i = 0; i < 2; i++) {
+			root[i] = null;
+		}
+		try {
+			entrada = new BufferedReader(new FileReader(fileIn));
+			linea = entrada.readLine();
+			while (linea != null) {
+				if (root[0] == null) {
+					root[0] = new NodeA(linea);
+					rewind();
+				} else {
+					if (!left) {
+						moveToYes();
+						left = acabat(root[1], linea);
+					}
+					moveToNo();
+					acabat(root[1], linea);
+				}
+				rewind();
+				linea = entrada.readLine();
+			}
+			entrada.close();
+		} catch (IOException e) {
+			System.err.println("Error:c");
+			System.exit(0);
+		}
+		System.out.println("Arbre creat");
+		return root[0];
+	}
+
+	private boolean acabat(NodeA node, String text) {
+		if (node.contents.isEmpty()) {
+			node = new NodeA(text);
+			return false;
+		} else if (atAnswer())
+			return true;
+		return acabat(node.yes.root[0], text) && acabat(node.no.root[0], text);
 	}
 	public void visualitzarAnimals() {
 		/* Following the guidelines indicated in the statement of practice */

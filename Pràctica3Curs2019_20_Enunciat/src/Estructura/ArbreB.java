@@ -43,7 +43,7 @@ public class ArbreB {
 		// Constructor 3. Crea l'arbre amb el contingut donat en un fitxer
 		// El paràmetre indica el nom del fitxer
 		String linea;
-		boolean question = false;
+		boolean left = false;
 		File fileIn = new File(filename);
 		BufferedReader entrada = new BufferedReader(new FileReader(fileIn));
 		for (int i = 0; i < 2; i++) {
@@ -56,18 +56,31 @@ public class ArbreB {
 					root[0] = new NodeA(linea);
 					rewind();
 				} else {
-					escriptura(linea);
-					/*
-					 * if (!atAnswer()) { moveToYes(); question = true; } else if (atAnswer()) {
-					 * moveToYes(); question = false; } else if (!atAnswer() && !question) {
-					 * rewind(); } else moveToNo(); root[1] = new NodeA(linea);
-					 */
+					if (!left) {
+						moveToYes();
+						left = acabat(root[1], linea);
+					}
+					moveToNo();
+					acabat(root[1], linea);
 				}
+				rewind();
+				linea = entrada.readLine();
 			}
 		} catch (IOException e) {
-
+			System.err.println("Error:c");
+			System.exit(0);
 		}
+		System.out.println("Arbre creat");
 		entrada.close();
+	}
+
+	private boolean acabat(NodeA node, String text) {
+		if (node.contents.isEmpty()) {
+			node = new NodeA(text);
+			return false;
+		} else if (atAnswer())
+			return true;
+		return acabat(node.yes.root[0], text) && acabat(node.no.root[0], text);
 	}
 
 	/* PUBLIC METHODS */

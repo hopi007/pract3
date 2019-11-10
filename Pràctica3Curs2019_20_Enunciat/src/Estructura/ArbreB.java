@@ -94,19 +94,7 @@ public class ArbreB {
 	private void preorderWrite(BufferedWriter buw) throws Exception {
 		// Imprescindible que la implementació sigui recursiva
 		rewind();
-		buw.write(arbreSencer());
-	}
-	//método añadido
-	private String arbreSencer() {
-		// String r ="";
-		if (atAnswer())
-			return getContents() + "\n";
-		moveToYes();
-		String left = arbreSencer();
-		rewind();
-		moveToNo();
-		String right = arbreSencer();
-		return left + " " + right;
+		buw.write(visualitzarAnimals());
 	}
 	/* Saves contents of tree in a text file */
 	public void save(String filename) throws Exception {
@@ -168,6 +156,14 @@ public class ArbreB {
 	public void visualitzarAnimals() {
 		/* Following the guidelines indicated in the statement of practice */
 		/* COMPLETE */
+		if (atAnswer())
+			return getContents() + "\n";
+		moveToYes();
+		String left = visualitzarAnimals();
+		rewind();
+		moveToNo();
+		String right = visualitzarAnimals();
+		return left + " " + right;
 	}
 	public int quantsAnimals() {
 		/* Following the guidelines indicated in the statement of practice */
@@ -181,5 +177,14 @@ public class ArbreB {
 		/* COMPLETE */
 		// Visualitza a pantalla les preguntes
 		// Imprescindible invocar a un màtode la classe NodeA
+		if(atAnswer())
+			return "";
+		String pregunta= root[1].getContents();
+		moveToYes();
+		String left= mostraPreguntes();
+		rewind();
+		moveToNo();
+		String right = mostrarPreguntes();
+		return pregunta+ "\n" + left +"\n"+ right;
 	}
 }

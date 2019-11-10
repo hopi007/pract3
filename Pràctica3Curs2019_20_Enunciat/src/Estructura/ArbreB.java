@@ -175,7 +175,7 @@ public class ArbreB {
 		if (atAnswer())
 			return numAnim++;
 		moveToYes();
-		numAnim= quantsAnuimals(numAnim);
+		numAnim= quantsAnimals(numAnim);
 		rewind();
 		moveToNo();
 		numAnim= quantsAnimals(numAnim);

@@ -167,10 +167,9 @@ public class ArbreB {
 	public int quantsAnimals() {
 		/* Following the guidelines indicated in the statement of practice */
 		/* COMPLETE */
-		int numAni;
+		int numAni=0;
 		
 		return quantsAnimals(numAni);
-		
 	}
 	public int quantsAnimals(int numAnim) {
 		if (atAnswer())
@@ -180,6 +179,7 @@ public class ArbreB {
 		rewind();
 		moveToNo();
 		quantsAnimals(numAnim);
+	}
 	public int alsada() {
 		/* COMPLETE */
 		// Imprescindible invocar a un mètode la classe NodeA

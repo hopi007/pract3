@@ -177,14 +177,13 @@ public class ArbreB {
 		/* COMPLETE */
 		// Visualitza a pantalla les preguntes
 		// Imprescindible invocar a un màtode la classe NodeA
-		if(atAnswer())
-			return "";
-		String pregunta= root[1].getContents();
+		if (atAnswer())
+			System.out.print("");
+		System.out.println(getContents());
 		moveToYes();
-		String left= mostraPreguntes();
+		mostraPreguntes();
 		rewind();
 		moveToNo();
-		String right = mostrarPreguntes();
-		return pregunta+ "\n" + left +"\n"+ right;
+		mostraPreguntes();
 	}
 }

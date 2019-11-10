@@ -185,8 +185,17 @@ public class ArbreB {
 	public int alsada() {
 		/* COMPLETE */
 		// Imprescindible invocar a un mètode la classe NodeA
-		int 
-		
+		if (atAnswer())
+			return 1;
+		int left, right;
+		moveToYes();
+		left = alsada() + 1;
+		rewind();
+		moveToNo();
+		right = alsada() + 1;
+		if (left >= right)
+			return left;
+		return right;
 	}
 	public void mostraPreguntes() {
 		/* COMPLETE */

@@ -157,13 +157,12 @@ public class ArbreB {
 		/* Following the guidelines indicated in the statement of practice */
 		/* COMPLETE */
 		if (atAnswer())
-			return getContents() + "\n";
+			System.out.println(getContents());
 		moveToYes();
-		String left = visualitzarAnimals();
+		visualitzarAnimals();
 		rewind();
 		moveToNo();
-		String right = visualitzarAnimals();
-		return left + " " + right;
+		visualitzarAnimals();
 	}
 	public int quantsAnimals() {
 		/* Following the guidelines indicated in the statement of practice */

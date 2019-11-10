@@ -167,10 +167,12 @@ public class ArbreB {
 	public int quantsAnimals() {
 		/* Following the guidelines indicated in the statement of practice */
 		/* COMPLETE */
+		
 	}
 	public int alsada() {
 		/* COMPLETE */
 		// Imprescindible invocar a un mètode la classe NodeA
+		
 	}
 	public void mostraPreguntes() {
 		/* COMPLETE */

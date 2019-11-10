@@ -175,14 +175,17 @@ public class ArbreB {
 		if (atAnswer())
 			return numAnim++;
 		moveToYes();
-		quantsAnuimals(numAnim);
+		numAnim= quantsAnuimals(numAnim);
 		rewind();
 		moveToNo();
-		quantsAnimals(numAnim);
+		numAnim= quantsAnimals(numAnim);
+		return numAnim;
+		
 	}
 	public int alsada() {
 		/* COMPLETE */
 		// Imprescindible invocar a un mètode la classe NodeA
+		int 
 		
 	}
 	public void mostraPreguntes() {

@@ -33,21 +33,30 @@ public class ArbreB {
 	/* CONSTRUCTORS */
 	public ArbreB(ArbreB a1, ArbreB a2, String pregunta) {
 		// Constructor 1. Crea un arbre amb una pregunta i dos respostes
+		initialise();
 		root[0] = new NodeA(pregunta, a1, a2);
-		rewind();
 	}
+
+	// PROVISIONAL
 	public ArbreB() {
 		// Constructor 2. Crea un arbre buit
+		initialise();
 		root[0] = new NodeA(null);
 	}
+
 	public ArbreB(String filename) throws Exception {
 		// Constructor 3. Crea l'arbre amb el contingut donat en un fitxer
 		// El paràmetre indica el nom del fitxer
+		initialise();
+		root[0] = loadFromFile(filename);
+		rewind();
+	}
+
+	private void initialise() {
+		root = new NodeA[2];
 		for (int i = 0; i < 2; i++) {
 			root[i] = null;
 		}
-		root[0] = loadFromFile(filename);
-		rewind();
 	}
 
 	/* PUBLIC METHODS */
@@ -128,9 +137,6 @@ public class ArbreB {
 		boolean left = false;
 		File fileIn = new File(filename);
 		BufferedReader entrada;
-		for (int i = 0; i < 2; i++) {
-			root[i] = null;
-		}
 		try {
 			entrada = new BufferedReader(new FileReader(fileIn));
 			linea = entrada.readLine();

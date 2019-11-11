@@ -94,7 +94,19 @@ public class ArbreB {
 	private void preorderWrite(BufferedWriter buw) throws Exception {
 		// Imprescindible que la implementació sigui recursiva
 		rewind();
-		buw.write(visualitzarAnimals());
+		buw.write(arbreSencer());
+	}
+
+	private String arbreSencer() {
+		if (atAnswer())
+			return getContents() + "\n";
+		String answer = getContents() + "\n";
+		moveToYes();
+		answer += arbreSencer();
+		rewind();
+		moveToNo();
+		answer += arbreSencer();
+		return answer;
 	}
 	/* Saves contents of tree in a text file */
 	public void save(String filename) throws Exception {

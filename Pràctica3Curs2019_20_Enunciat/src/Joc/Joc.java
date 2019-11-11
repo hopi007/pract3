@@ -19,7 +19,7 @@ public class Joc {
 		System.out.print("Vols carregar un fitxer?");
 		resposta = consola.readString();
 		System.out.println();
-		while (!resposta.equalsIgnoreCase("si") || !resposta.equalsIgnoreCase("no")) {
+		while (!resposta.equalsIgnoreCase("si") && !resposta.equalsIgnoreCase("no")) {
 			System.out.print("Resposta no valida. Vols carregar un fitxer?");
 			resposta = consola.readString();
 			System.out.println();
@@ -124,7 +124,7 @@ public class Joc {
 		resposta = consola.readString();
 		System.out.println();
 		while (!resposta.equalsIgnoreCase("si") || !resposta.equalsIgnoreCase("no")) {
-			System.out.print("\tResposta no valida. Vols jgar altre cop? ");
+			System.out.print("\tResposta no valida. Vols jugar altre cop? ");
 			resposta = consola.readString();
 			System.out.println();
 		}

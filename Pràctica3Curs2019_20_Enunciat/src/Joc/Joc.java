@@ -95,12 +95,10 @@ public class Joc {
 
 			System.out.print("\t" + arbre.getContents());
 			resposta = consola.readString();
-			System.out.println();
 
 			while (!resposta.equalsIgnoreCase("si") && !resposta.equalsIgnoreCase("no")) {
 				System.out.print("\tResposta no valida. " + arbre.getContents());
 				resposta = consola.readString();
-				System.out.println();
 			}
 
 			estarJugant(arbre.getContents(), resposta);
@@ -110,17 +108,19 @@ public class Joc {
 	private static void estarJugant(String pregunta, String resposta) {
 
 		if (resposta.equalsIgnoreCase("si")) {
-			if (arbre.atAnswer()) {
-				respostaFinalCorrecta();
-				continuarJugar();
-			}
 			arbre.moveToYes();
-		} else {
 			if (arbre.atAnswer()) {
-				respostaFinalIncorrecta();
+				jaHoSe();
 				continuarJugar();
 			}
+			
+		} else {
 			arbre.moveToNo();
+			if (arbre.atAnswer()) {
+				jaHoSe();
+				continuarJugar();
+			}
+			
 		}
 	}
 
@@ -129,17 +129,33 @@ public class Joc {
 	}
 
 	private static void respostaFinalIncorrecta() {
-		System.out.println("Uuuups HE FALLAT!!!");
-		System.out.print("\tplis, diguem el nom de l'animal que has pensat: ");
+		System.out.println("\tUuuups HE FALLAT!!!");
+		System.out.print("\t\tplis, diguem el nom de l'animal que has pensat: ");
 		String right = consola.readString();
 		right = checkAns(right);
 		System.out.println();
-		System.out.print("\tplis, diguem una pregunta que correspon a aquest animal: ");
+		System.out.print("\t\tplis, diguem una pregunta que correspon a aquest animal: ");
 		String pregunta = consola.readString();
 		pregunta = checkQues(pregunta);
 		System.out.println();
 
 		arbre.improve(pregunta, right);
+	}
+	
+	private static void jaHoSe() {
+		System.out.print("\tEm sembla que ja ho se!!!. Podria ser un/a "+ arbre.getContents()+"?");
+		String resposta= consola.readString();
+		
+		while (!resposta.equalsIgnoreCase("si") && !resposta.equalsIgnoreCase("no")) {
+			System.out.print("\tResposta no valida. Podria ser un/a " + arbre.getContents()+"?");
+			resposta = consola.readString();
+		}
+		
+		if (resposta.equalsIgnoreCase("si"))
+			respostaFinalCorrecta();
+		else {
+			respostaFinalIncorrecta();
+		}
 	}
 
 	private static void continuarJugar() {

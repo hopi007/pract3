@@ -12,15 +12,14 @@ public class Joc {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 		System.out.println("Welcome to wonderful GUESS THE ANIMAL");
 		System.out.println("-------------------------------------");
 		System.out.println();
-		System.out.print("Vols carregar un fitxer?");
+		System.out.print("Vols carregar un fitxer? ");
 		resposta = consola.readString();
 		System.out.println();
 		while (!resposta.equalsIgnoreCase("si") && !resposta.equalsIgnoreCase("no")) {
-			System.out.print("Resposta no valida. Vols carregar un fitxer?");
+			System.out.print("Resposta no valida. Vols carregar un fitxer? ");
 			resposta = consola.readString();
 			System.out.println();
 		}
@@ -31,7 +30,6 @@ public class Joc {
 			else
 				jocSenseFitxer();
 		}
-
 		System.out.print("ADEU!");
 	}
 
@@ -66,20 +64,20 @@ public class Joc {
 		System.out.println("JUEGUEM!!!!");
 		System.out.println();
 
-		arbre = crearArbre(pregunta, yes, no); //No se como crear los arboles, si los creas, en principio debería funcionar todo. Mira metodo.
+		arbre = crearArbre(pregunta, yes, no);
 
 		while (volsJugar) {
 
-			System.out.print("\t" + arbre.getContents());
+			System.out.print("\t" + arbre.getContents() + " ");
 			resposta = consola.readString();
 			System.out.println();
 
-			while (!resposta.equalsIgnoreCase("si") || !resposta.equalsIgnoreCase("no")) {
-				System.out.print("\tResposta no valida. " + arbre.getContents());
+			while (!resposta.equalsIgnoreCase("si") && !resposta.equalsIgnoreCase("no")) {
+				System.out.print("\tResposta no valida. " + arbre.getContents() + " ");
 				resposta = consola.readString();
 				System.out.println();
 			}
-
+			
 			estarJugant(arbre.getContents(), resposta);
 		}
 	}
@@ -143,7 +141,7 @@ public class Joc {
 
 	private static String checkQues(String preg) {
 		if (preg.charAt(preg.length() - 1) != '?')
-			preg = preg + "?";
+			preg += "?";
 		return preg.toUpperCase();
 	}
 

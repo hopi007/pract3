@@ -33,7 +33,7 @@ public class ArbreB {
 	private NodeA[] root;
 
 	/* CONSTRUCTORS */
-	// PROVISIONAL
+	//PROVISIONAL
 	public ArbreB(ArbreB a1, ArbreB a2, String pregunta) {
 		// Constructor 1. Crea un arbre amb una pregunta i dos respostes
 		initialise();
@@ -42,27 +42,27 @@ public class ArbreB {
 	}
 
 	// PROVISIONAL
-	public ArbreB() {
-		// Constructor 2. Crea un arbre buit
-		initialise();
-		root[0] = new NodeA(null);
-		rewind();
-	}
-
-	public ArbreB(String filename) throws Exception {
-		// Constructor 3. Crea l'arbre amb el contingut donat en un fitxer
-		// El paràmetre indica el nom del fitxer
-		initialise();
-		root[0] = loadFromFile(filename);
-		rewind();
-	}
-
-	private void initialise() {
-		root = new NodeA[2];
-		for (int i = 0; i < 2; i++) {
-			root[i] = null;
+		public ArbreB() {
+			// Constructor 2. Crea un arbre buit
+			initialise();
+			root[0] = new NodeA(null);
+			rewind();
 		}
-	}
+
+		public ArbreB(String filename) throws Exception {
+			// Constructor 3. Crea l'arbre amb el contingut donat en un fitxer
+			// El paràmetre indica el nom del fitxer
+			initialise();
+			root[0] = loadFromFile(filename);
+			rewind();
+		}
+		
+		private void initialise() {
+			root = new NodeA[2];
+			for (int i = 0; i < 2; i++) {
+				root[i] = null;
+			}
+		}
 
 	/* PUBLIC METHODS */
 	public boolean isEmpty() {
@@ -78,7 +78,7 @@ public class ArbreB {
 	/* True if the current node is an answer (a leaf) */
 	public boolean atAnswer() {
 		// COMPLETE
-		String node = getContents();
+		String node = root[1].contents;
 		return node.substring(node.length() - 1) != "?";
 	}
 
@@ -111,7 +111,6 @@ public class ArbreB {
 		root[1].contents = question;
 		root[1].yes.root[0].contents = answer;
 		root[1].no.root[0] = right;
-
 	}
 
 	private void preorderWrite(BufferedWriter buw) throws Exception {
@@ -119,7 +118,7 @@ public class ArbreB {
 		rewind();
 		buw.write(arbreSencer());
 	}
-
+	
 	private String arbreSencer() {
 		if (atAnswer())
 			return getContents() + "\n";
@@ -175,7 +174,8 @@ public class ArbreB {
 			System.err.println("Error:c");
 			System.exit(0);
 		}
-		System.out.println("Arbre creat");
+		System.out.println();
+		System.out.println("HAS CARREGAT UN FITXER.");
 		return root[0];
 	}
 
@@ -192,7 +192,7 @@ public class ArbreB {
 		/* Following the guidelines indicated in the statement of practice */
 		/* COMPLETE */
 		if (atAnswer())
-			System.out.println(getContents());
+			System.out.println("\t"+getContents().toUpperCase());
 		moveToYes();
 		visualitzarAnimals();
 		rewind();
@@ -204,10 +204,11 @@ public class ArbreB {
 		/* Following the guidelines indicated in the statement of practice */
 		/* COMPLETE */
 		int numAni = 0;
+
 		return quantsAnimals(numAni);
 	}
 
-	public int quantsAnimals(int numAnim) {
+	private int quantsAnimals(int numAnim) {
 		if (atAnswer())
 			return numAnim++;
 		moveToYes();

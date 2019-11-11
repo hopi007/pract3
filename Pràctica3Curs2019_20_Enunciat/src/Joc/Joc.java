@@ -10,16 +10,18 @@ public class Joc {
 	static Keyboard consola = new Keyboard();
 	private static ArbreB arbre;
 
+	// falla improve de Arbre,
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+
 		System.out.println("Welcome to wonderful GUESS THE ANIMAL");
 		System.out.println("-------------------------------------");
 		System.out.println();
-		System.out.print("Vols carregar un fitxer? ");
+		System.out.print("Vols carregar un fitxer?");
 		resposta = consola.readString();
 		System.out.println();
 		while (!resposta.equalsIgnoreCase("si") && !resposta.equalsIgnoreCase("no")) {
-			System.out.print("Resposta no valida. Vols carregar un fitxer? ");
+			System.out.print("Resposta no valida. Vols carregar un fitxer?");
 			resposta = consola.readString();
 			System.out.println();
 		}
@@ -30,10 +32,33 @@ public class Joc {
 			else
 				jocSenseFitxer();
 		}
+
 		System.out.print("ADEU!");
 	}
 
 	private static void jocFitxer() {
+
+		carregaFitxer();
+		mostrarFitxerRespostes();
+		mostrarFitxerPreguntes();
+
+		System.out.println("JUEGUEM!!!!");
+		System.out.println();
+
+		while (volsJugar) {
+
+			System.out.print("\t" + arbre.getContents());
+			resposta = consola.readString();
+			System.out.println();
+
+			while (!resposta.equalsIgnoreCase("si") && !resposta.equalsIgnoreCase("no")) {
+				System.out.print("\tResposta no valida. " + arbre.getContents());
+				resposta = consola.readString();
+				System.out.println();
+			}
+
+			estarJugant(arbre.getContents(), resposta);
+		}
 
 	}
 
@@ -68,16 +93,16 @@ public class Joc {
 
 		while (volsJugar) {
 
-			System.out.print("\t" + arbre.getContents() + " ");
+			System.out.print("\t" + arbre.getContents());
 			resposta = consola.readString();
 			System.out.println();
 
 			while (!resposta.equalsIgnoreCase("si") && !resposta.equalsIgnoreCase("no")) {
-				System.out.print("\tResposta no valida. " + arbre.getContents() + " ");
+				System.out.print("\tResposta no valida. " + arbre.getContents());
 				resposta = consola.readString();
 				System.out.println();
 			}
-			
+
 			estarJugant(arbre.getContents(), resposta);
 		}
 	}
@@ -121,14 +146,15 @@ public class Joc {
 		System.out.print("\tVols jugar altre cop? ");
 		resposta = consola.readString();
 		System.out.println();
-		while (!resposta.equalsIgnoreCase("si") || !resposta.equalsIgnoreCase("no")) {
-			System.out.print("\tResposta no valida. Vols jugar altre cop? ");
+		while (!resposta.equalsIgnoreCase("si") && !resposta.equalsIgnoreCase("no")) {
+			System.out.print("\tResposta no valida. Vols jgar altre cop? ");
 			resposta = consola.readString();
 			System.out.println();
 		}
 
 		if (resposta.equalsIgnoreCase("si")) {
 			volsJugar = true;
+			arbre.rewind();
 		} else {
 			volsJugar = false;
 
@@ -141,7 +167,7 @@ public class Joc {
 
 	private static String checkQues(String preg) {
 		if (preg.charAt(preg.length() - 1) != '?')
-			preg += "?";
+			preg = preg + "?";
 		return preg.toUpperCase();
 	}
 
@@ -152,17 +178,18 @@ public class Joc {
 	}
 
 	private static ArbreB crearArbre(String pregunta, String yes, String no) {
-		// falta implementarlo, sería el que crea el arbol donde jugamos
-		return new ArbreB(new ArbreB(null, null, yes), new ArbreB(null, null, no), pregunta);
+		return arbre = new ArbreB(new ArbreB(null, null, yes), new ArbreB(null, null, no), pregunta);
 	}
 
 	private static void guardarFitxer(ArbreB arbre) {
 		System.out.println();
 		System.out.print("Nom del fitxer? ");
 		String nomFitxer = consola.readString();
+		System.out.println();
 
-		if (nomFitxer.substring(nomFitxer.length() - 4, nomFitxer.length()).equalsIgnoreCase(".txt"))
+		if (!nomFitxer.substring(nomFitxer.length() - 4, nomFitxer.length()).equalsIgnoreCase(".txt"))
 			nomFitxer = nomFitxer.toUpperCase() + ".TXT";
+		nomFitxer = nomFitxer.toUpperCase();
 
 		try {
 			arbre.save(nomFitxer);
@@ -170,6 +197,52 @@ public class Joc {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private static void carregaFitxer() {
+		System.out.print("Nom del fitxer: ");
+		String nomFitxer = consola.readString();
+		System.out.println();
+
+		if (!nomFitxer.substring(nomFitxer.length() - 4, nomFitxer.length()).equalsIgnoreCase(".txt"))
+			nomFitxer = nomFitxer.toUpperCase() + ".TXT";
+		nomFitxer = nomFitxer.toUpperCase();
+
+		try {
+			arbre = new ArbreB(nomFitxer);
+
+			System.out.println("------------------------");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	private static void mostrarFitxerRespostes() {
+		System.out.println("L'arbre de coneixement te els seguents animals:");
+		arbre.visualitzarAnimals();
+		System.out.println();
+		System.out.println("en total en te: " + arbre.quantsAnimals());
+		System.out.println("i l'alçada de l'arbre es " + arbre.alsada());
+		System.out.println();
+	}
+
+	private static void mostrarFitxerPreguntes() {
+		System.out.print("Vols visualitzar les preguntes de l'arbre de coneixement?");
+		String resposta = consola.readString();
+		System.out.println();
+
+		while (!resposta.equalsIgnoreCase("si") && !resposta.equalsIgnoreCase("no")) {
+			System.out.print("Vols visualitzar les preguntes de l'arbre de coneixement?");
+			resposta = consola.readString();
+			System.out.println();
+		}
+
+		if (resposta.equalsIgnoreCase("si"))
+			arbre.mostraPreguntes();
+		System.out.println();
+
 	}
 
 }

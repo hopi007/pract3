@@ -153,9 +153,9 @@ public class Joc {
 		return ans.toUpperCase();
 	}
 
-	private static ArbreB crearArbre(String pregunta, String yes, String no) { 
+	private static ArbreB crearArbre(String pregunta, String yes, String no) {
 		// falta implementarlo, sería el que crea el arbol donde jugamos
-		return null;
+		return new ArbreB(new ArbreB(null, null, yes), new ArbreB(null, null, no), pregunta);
 	}
 
 	private static void guardarFitxer(ArbreB arbre) {

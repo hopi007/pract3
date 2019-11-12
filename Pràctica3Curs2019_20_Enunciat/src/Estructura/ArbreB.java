@@ -179,13 +179,22 @@ public class ArbreB {
 		return root[0];
 	}
 
-	private boolean acabat(NodeA node, String text) {
-		if (node.contents.isEmpty()) {
-			node = new NodeA(text);
+		private boolean acabat(String text) {
+		// falta rehacer
+		if (isEmpty()) {
+			root[1] = new NodeA(text);
 			return false;
 		} else if (atAnswer())
 			return true;
-		return acabat(node.yes.root[0], text) && acabat(node.no.root[0], text);
+		boolean make;
+		moveToYes();
+		make = acabat(text);
+		if (!make) {
+			rewind();
+			moveToNo();
+			make = acabat(text);
+		}
+		return !make;
 	}
 
 	public void visualitzarAnimals() {

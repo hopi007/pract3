@@ -163,7 +163,7 @@ public class ArbreB {
 		}
 		System.out.println();
 		System.out.println("HAS CARREGAT UN FITXER.");
-		return root[0];
+		return aux;
 	}
 
 	private NodeA crear(NodeA arrel, BufferedReader entrada, String text) { // repensarlo
@@ -176,6 +176,7 @@ public class ArbreB {
 					arrel.yes.root[0] = crear(arrel.yes.root[0], entrada, linea);
 					linea = entrada.readLine();
 					arrel.no.root[0] = crear(arrel.no.root[0], entrada, linea);
+					rewindCerca(arrel);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -184,16 +185,20 @@ public class ArbreB {
 		return arrel;
 	}
 
+	private void rewindCerca(NodeA arrel) {
+		arrel.yes.root[1] = arrel.yes.root[0];
+		arrel.no.root[1] = arrel.no.root[0];
+	}
+
 	public void visualitzarAnimals() {
 		/* Following the guidelines indicated in the statement of practice */
 		/* COMPLETE */
 		if (atAnswer())
 			System.out.println("\t" + getContents().toUpperCase());
-		moveToYes();
-		visualitzarAnimals();
-		rewind();
-		moveToNo();
-		visualitzarAnimals();
+		else {
+			root[0].yes.visualitzarAnimals();
+			root[0].no.visualitzarAnimals();
+		}
 	}
 
 	public int quantsAnimals() {
@@ -206,12 +211,9 @@ public class ArbreB {
 
 	private int quantsAnimals(int numAnim) {
 		if (atAnswer())
-			return numAnim++;
-		moveToYes();
-		numAnim = quantsAnimals(numAnim);
-		rewind();
-		moveToNo();
-		numAnim = quantsAnimals(numAnim);
+			return 1;
+		numAnim = root[0].yes.quantsAnimals(numAnim);
+		numAnim += root[0].no.quantsAnimals(numAnim);
 		return numAnim;
 	}
 
@@ -221,11 +223,8 @@ public class ArbreB {
 		if (atAnswer())
 			return 1;
 		int left, right;
-		moveToYes();
-		left = alsada() + 1;
-		rewind();
-		moveToNo();
-		right = alsada() + 1;
+		left = root[0].yes.alsada() + 1;
+		right = root[0].no.alsada() + 1;
 		if (left >= right)
 			return left;
 		return right;
@@ -237,11 +236,10 @@ public class ArbreB {
 		// Imprescindible invocar a un màtode la classe NodeA
 		if (atAnswer())
 			System.out.print("");
-		System.out.println(getContents());
-		moveToYes();
-		mostraPreguntes();
-		rewind();
-		moveToNo();
-		mostraPreguntes();
+		else {
+			System.out.println(getContents());
+			root[0].yes.mostraPreguntes();
+			root[0].no.mostraPreguntes();
+		}
 	}
 }

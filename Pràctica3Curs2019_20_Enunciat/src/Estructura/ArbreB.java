@@ -169,17 +169,17 @@ public class ArbreB {
 	private NodeA crear(NodeA arrel, BufferedReader entrada, String text) { // repensarlo
 		if (arrel == null)
 			arrel = new NodeA(text, new ArbreB(), new ArbreB());
-		try {
-			String linea = entrada.readLine();
-			if (linea != null) {
-				if (!isAnswer(text)) {
+		if (!isAnswer(text)) {
+			try {
+				String linea = entrada.readLine();
+				if (linea != null) {
 					arrel.yes.root[0] = crear(arrel.yes.root[0], entrada, linea);
 					linea = entrada.readLine();
+					arrel.no.root[0] = crear(arrel.no.root[0], entrada, linea);
 				}
-				arrel.no.root[0] = crear(arrel.no.root[0], entrada, linea);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		return arrel;
 	}

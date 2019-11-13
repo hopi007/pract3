@@ -23,10 +23,11 @@ public class ArbreB {
 		// PROVISIONAL
 		NodeA(String pregunta, ArbreB a1, ArbreB a2) {
 			// Constructor 2. Crea el node i l'inicialitza amb els paràmetres
-			this.contents = pregunta;
+			contents = pregunta;
 			yes = a1;
 			no = a2;
 		}
+
 	}
 
 	// Atributs: Taula de 2 posicions
@@ -67,7 +68,7 @@ public class ArbreB {
 	/* PUBLIC METHODS */
 	public boolean isEmpty() {
 		// COMPLETE
-		return root[0] == null;
+		return root[1] == null||root[1].contents==null;
 	}
 
 	public void rewind() {
@@ -78,8 +79,7 @@ public class ArbreB {
 	/* True if the current node is an answer (a leaf) */
 	public boolean atAnswer() {
 		// COMPLETE
-		String node = root[1].contents;
-		return node.substring(node.length() - 1) != "?";
+		return root[1].contents.charAt(root[1].contents.length() - 1) != '?'||root[1].contents==null;
 	}
 
 	/* move current to yes-descendant of itself */
@@ -91,7 +91,7 @@ public class ArbreB {
 	/* move current to yes-descendant of itself */
 	public void moveToNo() {
 		// COMPLETE
-		root[1] = root[1].no.root[0];
+		root[1] = root[1].no.root[1];
 	}
 
 	/* get the contents of the current node */
@@ -107,10 +107,10 @@ public class ArbreB {
 	 */
 	public void improve(String question, String answer) {
 		// COMPLETE
+		ArbreB right = new ArbreB(new ArbreB(), new ArbreB(), root[1].contents );
 		root[1].contents = question;
-		root[1].yes = new ArbreB(null, null, answer);
-		root[1].no = new ArbreB();
-		rewind();
+		root[1].yes = new ArbreB(new ArbreB(), new ArbreB(), answer);
+		root[1].no = right;
 	}
 
 	private void preorderWrite(BufferedWriter buw) throws Exception {
@@ -151,23 +151,21 @@ public class ArbreB {
 		boolean left = false;
 		File fileIn = new File(filename);
 		BufferedReader entrada;
+		ArbreB yes, no;
 		try {
 			entrada = new BufferedReader(new FileReader(fileIn));
 			linea = entrada.readLine();
 			while (linea != null) {
 				if (root[0] == null) {
-					root[0] = new NodeA(linea);
+					root[0] = new NodeA(linea, new ArbreB(), new ArbreB());
 					rewind();
 				} else {
-					if (!left) {
-						moveToYes();
-						left = acabat(root[1], linea);
-					}
-					moveToNo();
-					acabat(root[1], linea);
+					yes= acabat(entrada);
+					no=acabat(entrada);
+					
+					
 				}
-				rewind();
-				linea = entrada.readLine();
+				
 			}
 			entrada.close();
 		} catch (IOException e) {
@@ -179,23 +177,28 @@ public class ArbreB {
 		return root[0];
 	}
 
-		private boolean acabat(String text) {
-		// falta rehacer
-		if (isEmpty()) {
-			root[1] = new NodeA(text);
-			return false;
-		} else if (atAnswer())
-			return true;
-		boolean make;
-		moveToYes();
-		make = acabat(text);
-		if (!make) {
-			rewind();
-			moveToNo();
-			make = acabat(text);
+	private ArbreB acabat(BufferedReader entrada) { //repensarlo
+		String linea;
+		ArbreB aux = null;
+		try {
+			linea = entrada.readLine();
+			if (isEmpty()) 
+	             return aux= new ArbreB( new ArbreB(), new ArbreB(),linea);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return !make;
-	}
+        
+        rewind();
+        ArbreB left, right;
+        moveToYes();
+        acabat(entrada);
+        rewind();
+        moveToNo();
+        acabat(entrada);
+        rewind();
+        return aux;
+    }
 
 	public void visualitzarAnimals() {
 		/* Following the guidelines indicated in the statement of practice */
